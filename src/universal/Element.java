@@ -9,7 +9,7 @@ public class Element {
     private final ArrayList<Route> routes = new ArrayList<>();
     private final int id;
     private final String name;
-    private Routing routing = Routing.BY_PRIORITY;
+    private final Routing routing = Routing.BY_PRIORITY;
     private Distribution distribution;
     private double tNext;
     private double tCurr;
@@ -171,7 +171,7 @@ public class Element {
     }
 
     public void printInfo() {
-        //System.out.println(name + " state = " + getState() + " quantity = " + getQuantity() + " tnext = " + getTNext());
+        System.out.println(name + " state = " + getState() + " quantity = " + getQuantity() + " tnext = " + getTNext());
     }
 
     public void printResult() {

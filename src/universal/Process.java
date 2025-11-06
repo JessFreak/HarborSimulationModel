@@ -156,18 +156,13 @@ public class Process extends Element {
     @Override
     public void printInfo() {
         System.out.println(getName() +
-                //" state = " + getState() +
-                //" quantity = " + getQuantity() +
-                //" tnext = " + getTNext() +
+                " state = " + getState() +
+                " quantity = " + getQuantity() +
+                " tnext = " + getTNext() +
                 " tCurr = " + getTCurr() +
-                //" failures = " + failures +
+                " failures = " + failures +
                 " queue size = " + queue.size()
         );
-    }
-
-
-    public double getMeanLeaveInterval() {
-        return totalLeaveTime / getQuantity();
     }
 
     protected static class Channel {

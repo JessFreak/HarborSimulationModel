@@ -77,46 +77,34 @@ public class Harbor extends Process {
         double tCurr = super.getTCurr();
 
         if (activeShips.size() == 1) {
-            // ДЛЯ ОДНОГО КОРАБЛЯ
             Ship ship = activeShips.getFirst();
             Channel channel = activeChannels.getFirst();
 
-            // оновлюємо роботу, зроблену з ПОПЕРЕДНЬОЮ швидкістю
-            if (ship.getCurrentServiceRate() != 2.0) {
-                double workDone = (tCurr - ship.getTimeServiceRateSet()) * ship.getCurrentServiceRate();
-                ship.setRemainingWork(ship.getRemainingWork() - workDone);
-
-                ship.setCurrentServiceRate(2.0);
-                ship.setTimeServiceRateSet(tCurr);
-            }
-
-            // перераховуємо tNext з новою швидкістю
-            if (ship.getRemainingWork() > 1e-9) {
-                channel.setTNext(tCurr + ship.getRemainingWork() / 2.0);
-            } else {
-                channel.setTNext(tCurr);
-            }
+            updateShipAndChannel(ship, channel, tCurr, 2.0);
 
         } else if (activeShips.size() == 2) {
-            // ДЛЯ ДВОХ КОРАБЛІВ
             for (int i = 0; i < 2; i++) {
                 Ship ship = activeShips.get(i);
                 Channel channel = activeChannels.get(i);
 
-                if (ship.getCurrentServiceRate() != 1.0) {
-                    double workDone = (tCurr - ship.getTimeServiceRateSet()) * ship.getCurrentServiceRate();
-                    ship.setRemainingWork(ship.getRemainingWork() - workDone);
-
-                    ship.setCurrentServiceRate(1.0);
-                    ship.setTimeServiceRateSet(tCurr);
-                }
-
-                if (ship.getRemainingWork() > 1e-9) {
-                    channel.setTNext(tCurr + ship.getRemainingWork());
-                } else {
-                    channel.setTNext(tCurr);
-                }
+                updateShipAndChannel(ship, channel, tCurr, 1.0);
             }
+        }
+    }
+
+    private void updateShipAndChannel(Ship ship, Channel channel, double tCurr, double newRate) {
+        if (ship.getCurrentServiceRate() != newRate) {
+            double workDone = (tCurr - ship.getTimeServiceRateSet()) * ship.getCurrentServiceRate();
+            ship.setRemainingWork(ship.getRemainingWork() - workDone);
+
+            ship.setCurrentServiceRate(newRate);
+            ship.setTimeServiceRateSet(tCurr);
+        }
+
+        if (ship.getRemainingWork() > 1e-9) {
+            channel.setTNext(tCurr + ship.getRemainingWork() / newRate);
+        } else {
+            channel.setTNext(tCurr);
         }
     }
 
