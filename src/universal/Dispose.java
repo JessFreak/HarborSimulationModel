@@ -18,7 +18,7 @@ public class Dispose extends Element {
 
     @Override
     public void printInfo() {
-        System.out.println(getName() + " quantity = " + getQuantity());
+        //System.out.println(getName() + " quantity = " + getQuantity());
     }
 
     public ArrayList<Job> getProcessedJobs() {

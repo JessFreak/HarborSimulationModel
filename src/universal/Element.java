@@ -38,17 +38,6 @@ public class Element {
         nextId++;
     }
 
-    public Element(String name, double delayMean, double delayDev) {
-        this.name = name;
-        tNext = 0.0;
-        tCurr = tNext;
-        this.delayMean = delayMean;
-        this.delayDev = delayDev;
-        distribution = Distribution.NORMAL;
-        id = nextId;
-        nextId++;
-    }
-
     private static ArrayList<Route> getUnblockedRoutes(ArrayList<Route> routes, Job routedJob) {
         var unblockedRoutes = new ArrayList<Route>();
         for (var route : routes) {
@@ -68,10 +57,6 @@ public class Element {
             probabilities[i] *= 1 / (probabilities[probabilities.length - 1]);
         }
         return probabilities;
-    }
-
-    public void setRouting(Routing routing) {
-        this.routing = routing;
     }
 
     public double getDelay() {
@@ -186,7 +171,7 @@ public class Element {
     }
 
     public void printInfo() {
-        System.out.println(name + " state = " + getState() + " quantity = " + getQuantity() + " tnext = " + getTNext());
+        //System.out.println(name + " state = " + getState() + " quantity = " + getQuantity() + " tnext = " + getTNext());
     }
 
     public void printResult() {

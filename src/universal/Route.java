@@ -10,29 +10,6 @@ public class Route {
         this.element = element;
     }
 
-    public Route(Element element, Block block) {
-        this.element = element;
-        this.block = block;
-    }
-
-    public Route(Element element, double probability) {
-        this.element = element;
-        this.probability = probability;
-    }
-
-    public Route(Element element, double probability, int priority) {
-        this.element = element;
-        this.probability = probability;
-        this.priority = priority;
-    }
-
-    public Route(Element element, double probability, int priority, Block block) {
-        this.element = element;
-        this.probability = probability;
-        this.priority = priority;
-        this.block = block;
-    }
-
     public boolean isBlocked(Job job) {
         if (block == null) {
             return false;
@@ -54,10 +31,6 @@ public class Route {
 
     public double getProbability() {
         return probability;
-    }
-
-    public void setBlock(Block block) {
-        this.block = block;
     }
 
     @FunctionalInterface

@@ -18,6 +18,9 @@ public class Model {
     }
 
     public void simulate(double time) {
+        /*double nextPrintTime = 100.0;
+        final double PRINT_STEP = 100.0;*/
+
         while (tCurr < time) {
             tNext = Double.MAX_VALUE;
             for (var element : elements) {
@@ -44,7 +47,11 @@ public class Model {
                 }
             }
             isFirstIteration = false;
-            //printInfo();
+
+            /*if (tCurr >= nextPrintTime) {
+                printInfo(); // Викличе printInfo() для всіх елементів
+                nextPrintTime += PRINT_STEP;
+            }*/
         }
         printResult();
     }
