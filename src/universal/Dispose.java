@@ -1,9 +1,10 @@
 package universal;
 
-import java.util.ArrayList;
-
 public class Dispose extends Element {
-    ArrayList<Job> processedJobs = new ArrayList<>();
+    private double sumTimeIn = 0.0;
+    private double sumTimeOut = 0.0;
+    private double minTime = Double.MAX_VALUE;
+    private double maxTime = 0.0;
 
     public Dispose(String name) {
         super(name);
@@ -11,17 +12,34 @@ public class Dispose extends Element {
 
     @Override
     public void inAct(Job job) {
-        super.inAct(job);
-        processedJobs.add(job);
-        super.outAct();
+        double timeIn = job.getTimeIn();
+        double timeOut = job.getTimeOut();
+        double timeInSystem = timeOut - timeIn;
+
+        sumTimeIn += timeIn;
+        sumTimeOut += timeOut;
+
+        if (timeInSystem < minTime) {
+            minTime = timeInSystem;
+        }
+        if (timeInSystem > maxTime) {
+            maxTime = timeInSystem;
+        }
+
+        super.addQuantity(1);
     }
 
     @Override
-    public void printInfo() {
-        System.out.println(getName() + " quantity = " + getQuantity());
-    }
+    public void printResult() {
+        super.printResult();
 
-    public ArrayList<Job> getProcessedJobs() {
-        return processedJobs;
+        int N = super.getQuantity();
+        if (N > 0) {
+            double avgTime = (sumTimeOut - sumTimeIn) / N;
+
+            System.out.printf("\n   Average time in harbor (days): \t%.4f", avgTime);
+            System.out.printf("\n   Minimum time in harbor (days): \t%.4f", minTime);
+            System.out.printf("\n   Maximum time in harbor (days): \t%.4f", maxTime);
+        }
     }
 }
