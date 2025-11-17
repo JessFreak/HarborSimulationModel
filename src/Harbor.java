@@ -99,12 +99,12 @@ public class Harbor extends Process {
 
             ship.setCurrentServiceRate(newRate);
             ship.setTimeServiceRateSet(tCurr);
-        }
 
-        if (ship.getRemainingWork() > 1e-9) {
-            channel.setTNext(tCurr + ship.getRemainingWork() / newRate);
-        } else {
-            channel.setTNext(tCurr);
+            if (ship.getRemainingWork() > 1e-9) {
+                channel.setTNext(tCurr + ship.getRemainingWork() / newRate);
+            } else {
+                channel.setTNext(tCurr);
+            }
         }
     }
 
