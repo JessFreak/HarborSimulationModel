@@ -26,7 +26,7 @@ public class Model {
                     nearestEvent = element.getId();
                 }
             }
-            updateBlockedElements();
+            updateTimePoints();
             //System.out.println("\nEvent in " + elements.get(nearestEvent).getName() + ", tNext = " + tNext);
             var delta = tNext - tCurr;
             doModelStatistics(delta);
@@ -71,7 +71,7 @@ public class Model {
 
     protected void doModelStatistics(double delta) {}
 
-    private void updateBlockedElements() {
+    private void updateTimePoints() {
         for (var element : elements) {
             if (element.getTNext() <= tCurr) {
                 element.setTNext(tNext);

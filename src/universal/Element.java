@@ -37,17 +37,6 @@ public class Element {
         id = nextId;
         nextId++;
     }
-
-    private static ArrayList<Route> getUnblockedRoutes(ArrayList<Route> routes, Job routedJob) {
-        var unblockedRoutes = new ArrayList<Route>();
-        for (var route : routes) {
-            if (!route.isBlocked(routedJob)) {
-                unblockedRoutes.add(route);
-            }
-        }
-        return unblockedRoutes;
-    }
-
     private static double[] getScaledProbabilities(ArrayList<Route> routes) {
         var probabilities = new double[routes.size()];
         for (int i = 0; i < routes.size(); i++) {
@@ -108,26 +97,18 @@ public class Element {
     }
 
     private Route getNextRouteByProbability(Job routedJob) {
-        var unblockedRoutes = getUnblockedRoutes(routes, routedJob);
-        if (unblockedRoutes.isEmpty()) {
-            return routes.getFirst();
-        }
         var probability = Math.random();
-        var scaledProbabilities = getScaledProbabilities(unblockedRoutes);
+        var scaledProbabilities = getScaledProbabilities(routes);
         for (int i = 0; i < scaledProbabilities.length; i++) {
             if (probability < scaledProbabilities[i]) {
-                return unblockedRoutes.get(i);
+                return routes.get(i);
             }
         }
-        return unblockedRoutes.getLast();
+        return routes.getLast();
     }
 
     private Route getNextRouteByPriority(Job routedJob) {
-        var unblockedRoutes = getUnblockedRoutes(routes, routedJob);
-        if (unblockedRoutes.isEmpty()) {
-            return routes.getFirst();
-        }
-        return unblockedRoutes.getFirst();
+        return routes.getFirst();
     }
 
     public void addRoutes(Route... routes) {

@@ -48,9 +48,6 @@ public class Process extends Element {
             var job = channel.getCurrentJob();
 
             var nextRoute = getNextRoute(job);
-            if (nextRoute.isBlocked(job)) {
-                continue;
-            }
 
             if (nextRoute.getElement() != null) {
                 job.setTimeOut(super.getTCurr());
