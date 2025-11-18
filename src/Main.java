@@ -18,7 +18,7 @@ void main() {
     harbor.addRoutes(new Route(exit));
 
     Model model = new Model(generator, harbor, exit);
-    double simulationTime = 100_000_00.0;
+    double simulationTime = 100_000_000.0;
     IO.println("--- Starting simulation for " + simulationTime + " days ---");
 
     model.simulate(simulationTime);
