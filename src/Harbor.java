@@ -129,4 +129,16 @@ public class Harbor extends Process {
         super.printResult();
         System.out.println("   Mean Crane Workload (per crane) = " + (craneWorkTime / (2.0 * super.getTCurr())));
     }
+
+    @Override
+    public void printInfo() {
+        System.out.println(getName() +
+                " state = " + getState() +
+                " quantity = " + getQuantity() +
+                " tnext = " + getTNext() +
+                " tCurr = " + getTCurr() +
+                " failures = " + getFailures() +
+                " queue size = " + queue.size() +
+                " cumulativeMeanQueue = " + getMeanQueue());
+    }
 }
